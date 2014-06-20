@@ -17,9 +17,8 @@
 # limitations under the License.
 #
 
-package 'apache2' do
-  package_name node['apache']['package']
-end
+include_recipe "apache2::#{node['apache']['install_method']}"
+
 
 if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
   directory node['apache']['log_dir'] do

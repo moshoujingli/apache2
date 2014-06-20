@@ -18,6 +18,7 @@
 #
 
 default['apache']['root_group'] = 'root'
+default['apache']['install_method'] = 'package'
 
 # Where the various parts of apache are
 case node['platform']
