@@ -36,7 +36,7 @@ end
 
 version = node['apache']['version']
 
-remote_file "#{Chef::Config[:file_cache_path]}/apache-#{version}.tar.gz" do
+remote_file "#{Chef::Config[:file_cache_path]}/httpd-#{version}.tar.gz" do
   source "#{node['apache']['url']}/httpd-#{version}.tar.gz"
   checksum node['apache']['checksum']
   mode '0644'
@@ -69,14 +69,14 @@ extract 'extract apr-util' do
   src "#{Chef::Config['file_cache_path']}/apr-util"
 end
 
-bash 'build apache' do
+bash 'build httpd' do
   cwd Chef::Config[:file_cache_path]
   code <<-EOF
-  tar -zxf apache-#{version}.tar.gz
-  mv ./exp/apr apache-#{version}/srclib/apr
-  mv ./exp/apr-util apache-#{version}/srclib/apr-util
-  (cd apache-#{version} && ./configure #{configure_options})
-  (cd apache-#{version} && make && make install)
+  tar -zxf httpd-#{version}.tar.gz
+  mv ./exp/apr httpd-#{version}/srclib/apr
+  mv ./exp/apr-util httpd-#{version}/srclib/apr-util
+  (cd httpd-#{version} && ./configure #{configure_options})
+  (cd httpd-#{version} && make && make install)
   EOF
   not_if "which #{node['apache']['bin']}"
 end
