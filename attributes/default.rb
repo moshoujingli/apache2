@@ -19,6 +19,11 @@
 
 default['apache']['root_group'] = 'root'
 default['apache']['install_method'] = 'package'
+default['apache']['configure_options'] = %W{
+  --with-included-apr 
+  --enable-nonportable-atomics=yes 
+  --with-z
+}
 
 # Where the various parts of apache are
 case node['platform']

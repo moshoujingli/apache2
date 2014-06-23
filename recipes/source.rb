@@ -42,11 +42,39 @@ remote_file "#{Chef::Config[:file_cache_path]}/php-#{version}.tar.gz" do
   mode '0644'
   not_if "which #{node['apache']['bin']}"
 end
+#apr
+remote_file "#{Chef::Config['file_cache_path']}/apr" do
+  source 'http://ftp.riken.jp/net/apache//apr/apr-1.5.1.tar.gz'
+  owner 'root'
+  group 'root'
+  mode "0644"
+end
+
+
+extract 'extract apr' do
+  dest "#{Chef::Config['file_cache_path']}/exp/apr/"
+  src "#{Chef::Config['file_cache_path']}/apr"
+end
+#apr-util
+remote_file "#{Chef::Config['file_cache_path']}/apr-util" do
+  source 'http://ftp.riken.jp/net/apache//apr/apr-util-1.5.3.tar.gz'
+  owner 'root'
+  group 'root'
+  mode "0644"
+end
+
+
+extract 'extract apr-util' do
+  dest "#{Chef::Config['file_cache_path']}/exp/apr-util/"
+  src "#{Chef::Config['file_cache_path']}/apr-util"
+end
 
 bash 'build apache' do
   cwd Chef::Config[:file_cache_path]
   code <<-EOF
   tar -zxf apache-#{version}.tar.gz
+  mv ./exp/apr apache-#{version}/srclib/apr
+  mv ./exp/apr-util apache-#{version}/srclib/apr-util
   (cd apache-#{version} && #{ext_dir_prefix} ./configure #{configure_options})
   (cd apache-#{version} && make && make install)
   EOF
