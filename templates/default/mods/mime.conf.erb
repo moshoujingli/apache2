@@ -9,7 +9,12 @@
   <% when 'freebsd' -%>
   TypesConfig <%= node['apache']['dir'] %>/mime.types
   <% else -%>
-  TypesConfig /etc/mime.types
+    <% if node['apache']['install_method']=='source' -%>
+      TypesConfig <%= node['apache']['dir'] %>/conf/mime.types
+    <% else -%>
+      TypesConfig /etc/mime.types
+    <% end -%>
+
   <% end -%>
 
   #
