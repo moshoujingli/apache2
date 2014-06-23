@@ -127,11 +127,21 @@ template 'apache2.conf' do
   case node['platform_family']
   when 'rhel', 'fedora', 'arch'
     path "#{node['apache']['dir']}/conf/httpd.conf"
+    lockPath = 'logs/'
   when 'debian'
     path "#{node['apache']['dir']}/apache2.conf"
+    lockPath = '/var/lock/apache2/'
   when 'freebsd'
     path "#{node['apache']['dir']}/httpd.conf"
+    lockPath = '/var/log/'
   end
+  if node['apache']['version'].start_with?('2.4')
+    lockOption = "Mutex file:#{lockPath} default"
+  else
+    lockOption = "LockFile #{lockPath}/accept.lock"
+  end
+
+  variables({:lockOption=>lockOption});
   source   'apache2.conf.erb'
   owner    'root'
   group    node['apache']['root_group']
