@@ -36,7 +36,7 @@ end
 
 version = node['apache']['version']
 
-remote_file "#{Chef::Config[:file_cache_path]}/httpd-#{version}.tar.gz" do
+remote_file "#{Chef::Config[:file_cache_path]}/apache-#{version}.tar.gz" do
   source "#{node['apache']['url']}/httpd-#{version}.tar.gz"
   checksum node['apache']['checksum']
   mode '0644'
