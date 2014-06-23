@@ -19,6 +19,11 @@
 
 default['apache']['root_group'] = 'root'
 default['apache']['install_method'] = 'package'
+default['apache']['version'] = '2.4.9'
+default['apache']['url'] = 'http://ftp.kddilabs.jp/infosystems/apache//httpd/'
+default['apache']['checksum'] = 'fd4bf18dd1b3e0d9be9e85ff7e033b2eb8aa4976'
+default['apache']['location'] = '/usr/local/apache2/'
+
 default['apache']['configure_options'] = %W{
   --with-included-apr 
   --enable-nonportable-atomics=yes 
