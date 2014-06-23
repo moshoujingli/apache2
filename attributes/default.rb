@@ -25,6 +25,7 @@ default['apache']['checksum'] = 'fd4bf18dd1b3e0d9be9e85ff7e033b2eb8aa4976'
 default['apache']['location'] = '/usr/local/apache2/'
 
 default['apache']['configure_options'] = %W{
+  --prefix=#{node['apache']['location']}
   --with-included-apr 
   --enable-nonportable-atomics=yes 
   --with-z
@@ -189,7 +190,7 @@ default['apache']['proxy']['allow_from'] = 'none'
 
 default['apache']['default_modules'] = %w[
   alias auth_basic authn_file authz_groupfile authz_host authz_user autoindex
-  dir env mime negotiation setenvif unixd access_compat
+  dir env mime negotiation setenvif rewrite unixd access_compat
 ]
 
 %w[log_config logio].each do |log_mod|
