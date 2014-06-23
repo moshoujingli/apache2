@@ -80,3 +80,14 @@ bash 'build httpd' do
   EOF
   not_if "which #{node['apache']['bin']}"
 end
+
+bash 'config httpd' do
+  code <<-EOF
+  head -n1 #{node['apache']['binary']}/apachectl >/etc/init.d/httpd
+  echo '# chkconfig: 35 85 15'>>/etc/init.d/httpd
+  echo '# description: Activates/Deactivates Apache 2.4.6'>>/etc/init.d/httpd
+  tail #{node['apache']['binary']}/apachectl -n +2>>/etc/init.d/httpd
+  chkconfig --add httpd
+  chkconfig httpd on
+  EOF
+end
