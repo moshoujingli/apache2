@@ -62,7 +62,7 @@ supports 'ubuntu'
 
 depends 'logrotate'
 depends 'pacman'
-
+depends 'build-essential'
 attribute 'apache',
           :display_name => 'Apache Hash',
           :description  => 'Hash of Apache attributes',
