@@ -36,7 +36,7 @@ end
 
 version = node['apache']['version']
 
-remote_file "#{Chef::Config[:file_cache_path]}/php-#{version}.tar.gz" do
+remote_file "#{Chef::Config[:file_cache_path]}/httpd-#{version}.tar.gz" do
   source "#{node['apache']['url']}/httpd-#{version}.tar.gz"
   checksum node['apache']['checksum']
   mode '0644'
@@ -75,7 +75,7 @@ bash 'build apache' do
   tar -zxf apache-#{version}.tar.gz
   mv ./exp/apr apache-#{version}/srclib/apr
   mv ./exp/apr-util apache-#{version}/srclib/apr-util
-  (cd apache-#{version} && #{ext_dir_prefix} ./configure #{configure_options})
+  (cd apache-#{version} && ./configure #{configure_options})
   (cd apache-#{version} && make && make install)
   EOF
   not_if "which #{node['apache']['bin']}"
