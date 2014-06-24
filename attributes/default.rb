@@ -190,7 +190,7 @@ default['apache']['proxy']['allow_from'] = 'none'
 
 default['apache']['default_modules'] = %w[
   alias auth_basic authn_file authz_groupfile authz_host authz_user autoindex
-  dir env mime negotiation setenvif rewrite unixd access_compat filter
+  dir env mime negotiation setenvif rewrite unixd access_compat filter authn_core
 ]
 
 %w[log_config logio].each do |log_mod|
