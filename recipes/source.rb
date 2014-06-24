@@ -78,7 +78,7 @@ bash 'build httpd' do
   (cd httpd-#{version} && ./configure #{configure_options})
   (cd httpd-#{version} && make && make install)
   EOF
-  not_if "which #{node['apache']['binary']}/httpd"
+  not_if "which #{node['apache']['binary']}"
 end
 
 bash 'config httpd' do
