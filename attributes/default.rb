@@ -192,9 +192,6 @@ default['apache']['default_modules'] = %w[
   alias auth_basic authn_file authz_groupfile authz_host authz_user autoindex
   dir env mime negotiation setenvif rewrite unixd access_compat filter
 ]
-if node['php']['install_method']=='source'
-  default['apache']['default_modules']<<'php5'
-end
 
 %w[log_config logio].each do |log_mod|
   default['apache']['default_modules'] << log_mod if %w[rhel fedora suse arch freebsd].include?(node['platform_family'])
